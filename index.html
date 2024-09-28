@@ -1,1 +1,147 @@
-<h1>Welcome to <a href=”http://www.forestotzka.com”>www.forestotzka.com</a>!<h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTuberグループ「森」公式サイト</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f8f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #2c7744;
+            color: #ffffff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #1a4a2a 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #a5d6a7;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url('forest.jpg') no-repeat 0 -400px;
+            text-align: center;
+            color: #ffffff;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        #showcase p {
+            font-size: 20px;
+        }
+        #boxes {
+            margin-top: 20px;
+        }
+        #boxes .box {
+            float: left;
+            text-align: center;
+            width: 30%;
+            padding: 10px;
+        }
+        #boxes .box img {
+            width: 120px;
+        }
+        footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #ffffff;
+            background-color: #2c7744;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">VTuber</span> グループ「森」</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">ホーム</a></li>
+                    <li><a href="#">メンバー</a></li>
+                    <li><a href="#">配信スケジュール</a></li>
+                    <li><a href="#">グッズ</a></li>
+                    <li><a href="#">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <div class="container">
+            <h1>エアリプの森へ、ようこそ</h1>
+            <p>自然と調和する、新世代VTuber</p>
+        </div>
+    </section>
+
+    <section id="boxes">
+        <div class="container">
+            <div class="box">
+                <img src="live.png" alt="最新ニュース">
+                <h3>最新ニュース</h3>
+                <p>1stライブが開催決定！</p>
+            </div>
+            <div class="box">
+                <img src="cat.png" alt="配信ハイライト">
+                <h3>配信ハイライト</h3>
+                <p>週間人気クリップをチェック！</p>
+            </div>
+            <div class="box">
+                <img src="forest.png" alt="環境保護活動">
+                <h3>環境保護活動</h3>
+                <p>先月の植樹活動レポートを公開中</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>VTuberグループ「森」公式サイト &copy; 2024</p>
+    </footer>
+</body>
+</html>
