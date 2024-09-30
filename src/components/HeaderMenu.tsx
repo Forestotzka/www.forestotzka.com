@@ -24,18 +24,26 @@ const HeaderMenu = (): JSX.Element => {
                         </div>
                     </div>
                     <nav className='py-5 flex-1 flex flex-col gap-7 overflow-y-auto'>
-                        <Link href='/news'>
-                            <p className='text-lg text-center text-white'>NEWS</p>
-                        </Link>
-                        <Link href='/products'>
-                            <p className='text-lg text-center text-white'>PRODUCTS</p>
-                        </Link>
-                        <Link href='/blogs'>
-                            <p className='text-lg text-center text-white'>BLOGS</p>
-                        </Link>
-                        <Link href='/profiles'>
-                            <p className='text-lg text-center text-white'>PROFILES</p>
-                        </Link>
+                        <div onClick={toggleOpen}>
+                            <Link href='/news'>
+                                <p className='text-lg text-center text-white hover:underline underline-offset-4'>NEWS</p>
+                            </Link>
+                        </div>
+                        <div onClick={toggleOpen}>
+                            <Link href='/products'>
+                                <p className='text-lg text-center text-white hover:underline underline-offset-4'>PRODUCTS</p>
+                            </Link>
+                        </div>
+                        <div onClick={toggleOpen}>
+                            <Link href='/blogs'>
+                                <p className='text-lg text-center text-white hover:underline underline-offset-4'>BLOGS</p>
+                            </Link>
+                        </div>
+                        <div onClick={toggleOpen}>
+                            <Link href='/profiles'>
+                                <p className='text-lg text-center text-white hover:underline underline-offset-4'>PROFILES</p>
+                            </Link>
+                        </div>
                     </nav>
                 </div>
             </div>

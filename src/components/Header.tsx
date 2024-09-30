@@ -12,20 +12,20 @@ const Header = (): JSX.Element => {
         <header className='fixed w-dvw bg-green-700 shadow-xl'>
             <div className='px-5 max-w-6xl mx-auto flex justify-between items-center h-20'>
                 <Link href='/'>
-                    <p className='text-xl text-white'>エアリプの森</p>
+                    <p className='text-xl text-white hover:underline underline-offset-4 decoration-1'>エアリプの森</p>
                 </Link>
                 <nav className='hidden lg:flex gap-10'>
                     <Link href='/news'>
-                        <p className='text-lg text-white'>NEWS</p>
+                        <p className='text-lg text-white hover:underline underline-offset-4'>NEWS</p>
                     </Link>
                     <Link href='/products'>
-                        <p className='text-lg text-white'>PRODUCTS</p>
+                        <p className='text-lg text-white hover:underline underline-offset-4'>PRODUCTS</p>
                     </Link>
                     <Link href='/blogs'>
-                        <p className='text-lg text-white'>BLOGS</p>
+                        <p className='text-lg text-white hover:underline underline-offset-4'>BLOGS</p>
                     </Link>
                     <Link href='/profiles'>
-                        <p className='text-lg text-white'>PROFILES</p>
+                        <p className='text-lg text-white hover:underline underline-offset-4'>PROFILES</p>
                     </Link>
                 </nav>
                 <div className='hidden max-lg:block size-8 text-white cursor-pointer' onClick={toggleOpen}>
