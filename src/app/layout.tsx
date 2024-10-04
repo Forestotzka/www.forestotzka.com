@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import '@/styles/globals.css';
 
-import LayoutChild from '@/app/layoutChild';
+import Root from '@/components/Root';
 import HeaderMenuProvider from '@/contexts/HeaderMenu';
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ type Props = {
 const RootLayout = ({ children }: Props): JSX.Element => {
     return (
         <HeaderMenuProvider>
-            <LayoutChild>{children}</LayoutChild>
+            <Root>{children}</Root>
         </HeaderMenuProvider>
     );
 };

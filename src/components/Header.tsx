@@ -9,7 +9,7 @@ const Header = (): JSX.Element => {
     const { toggleOpen } = useHeaderMenu();
 
     return (
-        <header className='fixed w-dvw bg-green-700 shadow-xl'>
+        <header className='fixed w-full bg-green-700 shadow-xl z-50'>
             <div className='px-5 max-w-6xl mx-auto flex justify-between items-center h-20'>
                 <Link href='/'>
                     <p className='text-xl text-white hover:underline underline-offset-4 decoration-1'>エアリプの森</p>

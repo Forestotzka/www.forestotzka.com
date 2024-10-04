@@ -13,10 +13,10 @@ const HeaderMenu = (): JSX.Element => {
 
     return (
         <div>
-            <div className={`fixed top-0 right-0 w-dvw h-dvh transition-opacity ${overlayClassName}`} onClick={toggleOpen}>
+            <div className={`fixed top-0 right-0 w-full h-dvh transition-opacity z-50 ${overlayClassName}`} onClick={toggleOpen}>
                 <div className='h-full bg-black/30' />
             </div>
-            <div className={`fixed top-0 right-0 max-w-60 w-60 h-dvh transition-transform duration-300 ease-in-out ${menuClassName}`}>
+            <div className={`fixed top-0 right-0 max-w-60 w-60 h-dvh transition-transform duration-300 ease-in-out z-50 ${menuClassName}`}>
                 <div className='flex flex-col h-full bg-green-700'>
                     <div className='px-5 flex justify-end items-center h-20'>
                         <div className='size-8 text-white cursor-pointer' onClick={toggleOpen}>
