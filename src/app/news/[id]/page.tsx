@@ -1,9 +1,10 @@
 import React from 'react';
+import { Metadata } from 'next';
+import Image from 'next/image';
 
 import UpdateSvg from '@/components/svg/UpdateSvg';
 import CloudUpSvg from '@/components/svg/CloudUpSvg';
 import { News } from '@/utils/resources/News';
-import Image from 'next/image';
 
 type Param = {
     id: string;
@@ -14,6 +15,20 @@ type Props = {
 };
 
 export const dynamicParams = false;
+
+export function generateMetadata({ params }: { params: { id: string } }): Metadata {
+    const news = new News(params.id);
+
+    return {
+        title: `${news.title} | エアリプの森`,
+        openGraph: {
+            type: 'website',
+            title: news.title,
+            description: news.description,
+            images: `/resources/news/${news.id}/image.png`,
+        },
+    };
+}
 
 export function generateStaticParams(): Param[] {
     return News.getIds().map((id) => {
