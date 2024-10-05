@@ -31,11 +31,11 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
     private _lastUpdateDate: Date;
 
     public static ascendSortByPostDate(posts: AbstractPost<AbstractPostMetadata>[]): AbstractPost<AbstractPostMetadata>[] {
-        return posts.toSorted((a, b) => (a._postDate > b._postDate ? 1 : -1));
+        return [...posts].sort((a, b) => (a._postDate > b._postDate ? 1 : -1));
     }
 
     public static descendSortByPostDate(posts: AbstractPost<AbstractPostMetadata>[]): AbstractPost<AbstractPostMetadata>[] {
-        return posts.toSorted((a, b) => (a._postDate < b._postDate ? 1 : -1));
+        return [...posts].sort((a, b) => (a._postDate < b._postDate ? 1 : -1));
     }
 
     constructor(id: string, type: PostType) {
