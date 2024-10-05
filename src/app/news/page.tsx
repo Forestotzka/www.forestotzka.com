@@ -18,7 +18,7 @@ const News = (): JSX.Element => {
         <>
             <PageTitle title='NEWS' />
             <PostCardGrid>
-                {newsList.map((news) => (
+                {NewsClass.descendSortByPostDate(newsList).map((news) => (
                     <PostCard key={news.id} post={news} postType='news' />
                 ))}
             </PostCardGrid>
