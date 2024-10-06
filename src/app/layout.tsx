@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
 
 import '@/styles/globals.css';
@@ -6,6 +6,10 @@ import '@/styles/globals.css';
 import Root from '@/components/Root';
 import HeaderMenuProvider from '@/contexts/HeaderMenu';
 import { Text } from '@/utils/Text';
+
+export const viewport: Viewport = {
+    themeColor: '#15803d',
+};
 
 export const metadata: Metadata = {
     title: Text.forestotzka,
