@@ -22,9 +22,10 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
 
     return {
         title: `${news.title} | ${Text.forestotzka}`,
+        description: news.description,
         openGraph: {
             type: 'website',
-            title: news.title,
+            title: `${news.title} | ${Text.forestotzka}`,
             description: news.description,
         },
     };
