@@ -1,9 +1,6 @@
 import { transformerCopyButton } from '@rehype-pretty/transformers';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { Image } from 'mdast';
-import { Node } from 'unist';
-import { visit } from 'unist-util-visit';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -12,6 +9,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeClassNames from 'rehype-class-names';
 
 import { PostType } from '@/types/PostType';
+import { remarkFixImgPath } from '@/utils/unifiedPlugins/remarkFixImgPath';
 
 export type AbstractPostMetadata = {
     title: string;
@@ -81,7 +79,10 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
     public async formatContent(): Promise<string> {
         const content = await unified()
             .use(remarkParse)
-            .use(this.remarkFixImgPath.bind(this))
+            .use(remarkFixImgPath, {
+                id: this._id,
+                type: this._type,
+            })
             .use(remarkRehype)
             .use(rehypePrettyCode, {
                 theme: 'one-dark-pro',
@@ -119,17 +120,5 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         });
 
         return timeFormat.format(this._lastUpdateDate);
-    }
-
-    private remarkFixImgPath(): (tree: Node) => void {
-        return (tree: Node) => {
-            visit(tree, 'image', (node: Image) => {
-                if (node.url.startsWith('/public')) {
-                    node.url = node.url.replace('/public', '');
-                } else if (!(node.url.startsWith('https://') || node.url.startsWith('http://'))) {
-                    node.url = `/resources/${this._type}/${this._id}/${node.url}`;
-                }
-            });
-        };
     }
 }
