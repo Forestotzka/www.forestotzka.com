@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -83,6 +84,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
                 id: this._id,
                 type: this._type,
             })
+            .use(remarkGfm)
             .use(remarkRehype)
             .use(rehypePrettyCode, {
                 theme: 'one-dark-pro',
