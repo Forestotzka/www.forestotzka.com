@@ -9,7 +9,6 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@rehype-pretty/transformers": "^0.13.2",
         "@tailwindcss/typography": "^0.5.15",
         "next": "14.2.13",
         "react": "^18",

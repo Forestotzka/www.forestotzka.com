@@ -1,4 +1,3 @@
-import { transformerCopyButton } from '@rehype-pretty/transformers';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { unified } from 'unified';
@@ -89,12 +88,6 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
             .use(rehypePrettyCode, {
                 theme: 'one-dark-pro',
                 defaultLang: 'text',
-                transformers: [
-                    transformerCopyButton({
-                        visibility: 'hover',
-                        feedbackDuration: 3_000,
-                    }),
-                ],
             })
             .use(rehypeStringify)
             .use(rehypeClassNames, {
