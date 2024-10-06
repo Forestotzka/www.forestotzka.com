@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PageTitle from '@/components/PageTitle';
-import PostCard from '@/components/PostCard';
+import NewsCard from '@/components/NewsCard';
 import PostCardGrid from '@/components/PostCardGrid';
 import { News } from '@/utils/resources/News';
 
@@ -19,7 +19,7 @@ const Home = (): JSX.Element => {
             <PageTitle title='NEWS' />
             <PostCardGrid>
                 {News.descendSortByPostDate(newsList).map((news) => (
-                    <PostCard key={news.id} post={news} postType='news' />
+                    <NewsCard key={news.id} news={news} />
                 ))}
             </PostCardGrid>
         </>

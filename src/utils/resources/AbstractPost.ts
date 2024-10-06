@@ -13,6 +13,7 @@ import { remarkFixImgPath } from '@/utils/unifiedPlugins/remarkFixImgPath';
 
 export type AbstractPostMetadata = {
     title: string;
+    description: string;
     post_date: string;
     last_update_date: string;
 };
@@ -25,14 +26,15 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
     private _content: string;
     private _metadata: T;
     private _title: string;
+    private _description: string;
     private _postDate: Date;
     private _lastUpdateDate: Date;
 
-    public static ascendSortByPostDate(posts: AbstractPost<AbstractPostMetadata>[]): AbstractPost<AbstractPostMetadata>[] {
+    public static ascendSortByPostDate<T extends AbstractPost<U>, U extends AbstractPostMetadata>(posts: T[]): T[] {
         return [...posts].sort((a, b) => (a._postDate > b._postDate ? 1 : -1));
     }
 
-    public static descendSortByPostDate(posts: AbstractPost<AbstractPostMetadata>[]): AbstractPost<AbstractPostMetadata>[] {
+    public static descendSortByPostDate<T extends AbstractPost<U>, U extends AbstractPostMetadata>(posts: T[]): T[] {
         return [...posts].sort((a, b) => (a._postDate < b._postDate ? 1 : -1));
     }
 
@@ -44,6 +46,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         this._content = readFileSync(join(basePath, 'content.md'), 'utf-8');
         this._metadata = JSON.parse(readFileSync(join(basePath, 'metadata.json'), 'utf-8'));
         this._title = this._metadata.title;
+        this._description = this._metadata.description;
         this._postDate = new Date(this._metadata.post_date);
         this._lastUpdateDate = new Date(this._metadata.last_update_date);
     }
@@ -56,7 +59,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         return this._id;
     }
 
-    public get type(): string {
+    public get type(): PostType {
         return this._type;
     }
 
@@ -66,6 +69,10 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
 
     public get title(): string {
         return this._title;
+    }
+
+    public get description(): string {
+        return this._description;
     }
 
     public get postDate(): Date {
