@@ -35,7 +35,7 @@ export function generateStaticParams(): Param[] {
     });
 }
 
-const NewsPage = async ({ params }: Props): Promise<JSX.Element> => {
+const Home = async ({ params }: Props): Promise<JSX.Element> => {
     const news = new News(params.id);
 
     return (
@@ -73,4 +73,4 @@ const NewsPage = async ({ params }: Props): Promise<JSX.Element> => {
     );
 };
 
-export default NewsPage;
+export default Home;
