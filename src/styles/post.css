@@ -1,0 +1,16 @@
+@import './syntax-highlighting.css';
+
+th[align='left'],
+td[align='left'] {
+    text-align: left;
+}
+
+th[align='right'],
+td[align='right'] {
+    text-align: right;
+}
+
+th[align='center'],
+td[align='center'] {
+    text-align: center;
+}
