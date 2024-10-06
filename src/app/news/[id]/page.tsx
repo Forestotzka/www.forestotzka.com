@@ -5,6 +5,7 @@ import Image from 'next/image';
 import UpdateSvg from '@/components/svg/UpdateSvg';
 import CloudUpSvg from '@/components/svg/CloudUpSvg';
 import { News } from '@/utils/resources/News';
+import { Text } from '@/utils/Text';
 
 type Param = {
     id: string;
@@ -20,7 +21,7 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
     const news = new News(params.id);
 
     return {
-        title: `${news.title} | エアリプの森`,
+        title: `${news.title} | ${Text.forestotzka}`,
         openGraph: {
             type: 'website',
             title: news.title,
