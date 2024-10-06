@@ -88,6 +88,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
             .use(remarkRehype)
             .use(rehypePrettyCode, {
                 theme: 'one-dark-pro',
+                defaultLang: 'text',
                 transformers: [
                     transformerCopyButton({
                         visibility: 'hover',
