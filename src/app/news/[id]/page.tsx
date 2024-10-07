@@ -26,6 +26,7 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
             type: 'website',
             title: `${news.title} | ${Text.forestotzka}`,
             description: news.description,
+            images: `${Text.forestotzka_url}${news.imagePath}`,
         },
     };
 }

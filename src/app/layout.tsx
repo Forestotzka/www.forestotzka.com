@@ -14,6 +14,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     title: Text.forestotzka,
     description: Text.forestotzka_description,
+    openGraph: {
+        type: 'website',
+        title: Text.forestotzka,
+        description: Text.forestotzka_description,
+        images: `${Text.forestotzka_url}/forestotzka-logo.png`,
+    },
 };
 
 type Props = {

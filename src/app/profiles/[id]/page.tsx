@@ -29,6 +29,7 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
             type: 'website',
             title: `${staff.name} | ${Text.forestotzka}`,
             description: staff.introduction,
+            images: `${Text.forestotzka_url}${staff.iconPath}`,
         },
     };
 }
