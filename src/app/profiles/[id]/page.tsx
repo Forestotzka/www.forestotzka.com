@@ -31,6 +31,9 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
             description: staff.introduction,
             images: `${Text.forestotzka_url}${staff.iconPath}`,
         },
+        twitter: {
+            card: 'summary',
+        },
     };
 }
 
