@@ -59,7 +59,7 @@ const Home = async ({ params }: Props): Promise<JSX.Element> => {
                 <h1 className='py-5 font-semibold text-2xl lg:text-4xl'>{news.title}</h1>
                 <div className='aspect-video bg-slate-400'>
                     <Image
-                        src={`/resources/${news.type}/${news.id}/image.png`}
+                        src={news.imagePath}
                         alt='News Thumbnail'
                         priority={true}
                         width={0}

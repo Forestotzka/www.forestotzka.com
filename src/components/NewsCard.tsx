@@ -13,7 +13,7 @@ const NewsCard = ({ news }: Props): JSX.Element => {
             <Link href={`/${news.type}/${news.id}`} className='hover:opacity-75 transition-opacity duration-200'>
                 <div className='aspect-video bg-slate-400 rounded-md overflow-hidden'>
                     <Image
-                        src={`/resources/${news.type}/${news.id}/image.png`}
+                        src={news.imagePath}
                         alt='Post Thumbnail'
                         priority={false}
                         width={0}

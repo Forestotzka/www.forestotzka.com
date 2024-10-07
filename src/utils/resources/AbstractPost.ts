@@ -83,6 +83,10 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         return this._lastUpdateDate;
     }
 
+    public get imagePath(): string {
+        return `/resources/${this._type}/${this._id}/image.png`;
+    }
+
     public async formatContent(): Promise<string> {
         const content = await unified()
             .use(remarkParse)

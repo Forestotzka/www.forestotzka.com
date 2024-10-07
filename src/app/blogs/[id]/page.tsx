@@ -74,7 +74,7 @@ const Home = async ({ params }: Props): Promise<JSX.Element> => {
                                 <div className='flex items-center gap-2 hover:opacity-75 transition-opacity duration-200'>
                                     <div className='w-9 aspect-square rounded-full overflow-hidden'>
                                         <Image
-                                            src={`/staff/${member.id}/icon.png`}
+                                            src={member.iconPath}
                                             alt='Staff Icon'
                                             priority={false}
                                             width={0}
@@ -92,7 +92,7 @@ const Home = async ({ params }: Props): Promise<JSX.Element> => {
                 <h1 className='py-5 font-semibold text-2xl lg:text-4xl'>{blog.title}</h1>
                 <div className='aspect-video bg-slate-400'>
                     <Image
-                        src={`/resources/${blog.type}/${blog.id}/image.png`}
+                        src={blog.imagePath}
                         alt='News Thumbnail'
                         priority={true}
                         width={0}

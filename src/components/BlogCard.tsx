@@ -13,7 +13,7 @@ const BlogCard = ({ blog }: Props): JSX.Element => {
             <Link href={`/${blog.type}/${blog.id}`} className='hover:opacity-75 transition-opacity duration-200'>
                 <div className='aspect-video bg-slate-400 rounded-md overflow-hidden'>
                     <Image
-                        src={`/resources/${blog.type}/${blog.id}/image.png`}
+                        src={blog.imagePath}
                         alt='Post Thumbnail'
                         priority={false}
                         width={0}
@@ -32,7 +32,7 @@ const BlogCard = ({ blog }: Props): JSX.Element => {
                     <Link key={index} href={`/profiles/${member.id}`}>
                         <div className='mt-1 w-7 aspect-square rounded-full overflow-hidden hover:opacity-75 transition-opacity duration-200'>
                             <Image
-                                src={`/staff/${member.id}/icon.png`}
+                                src={member.iconPath}
                                 alt='Staff Icon'
                                 priority={false}
                                 width={0}
