@@ -29,9 +29,6 @@ const Header = (): JSX.Element => {
                     <Link href='/news'>
                         <p className='text-lg text-white hover:underline underline-offset-4'>NEWS</p>
                     </Link>
-                    <Link href='/products'>
-                        <p className='text-lg text-white hover:underline underline-offset-4'>PRODUCTS</p>
-                    </Link>
                     <Link href='/blogs'>
                         <p className='text-lg text-white hover:underline underline-offset-4'>BLOGS</p>
                     </Link>
