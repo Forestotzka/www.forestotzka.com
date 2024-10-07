@@ -30,11 +30,6 @@ const HeaderMenu = (): JSX.Element => {
                             </Link>
                         </div>
                         <div onClick={toggleOpen}>
-                            <Link href='/products'>
-                                <p className='text-lg text-center text-white hover:underline underline-offset-4'>PRODUCTS</p>
-                            </Link>
-                        </div>
-                        <div onClick={toggleOpen}>
                             <Link href='/blogs'>
                                 <p className='text-lg text-center text-white hover:underline underline-offset-4'>BLOGS</p>
                             </Link>
