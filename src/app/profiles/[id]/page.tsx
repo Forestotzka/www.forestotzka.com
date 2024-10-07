@@ -53,7 +53,7 @@ const Home = ({ params }: Props): JSX.Element => {
                         <p className='text-base text-gray-600'>{staff.description}</p>
                         <p className='text-xl md:text-2xl'>{staff.name}</p>
                     </div>
-                    <div className='flex items-center gap-5'>
+                    <div className='flex flex-wrap justify-center md:justify-start items-center gap-5'>
                         {staff.link.youtube && (
                             <a href={staff.link.youtube} target='_blank' rel='noreferrer'>
                                 <div className='size-9 flex items-center cursor-pointer fill-black hover:fill-red-500 transition-colors duration-300'>
