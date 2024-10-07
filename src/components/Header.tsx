@@ -29,7 +29,7 @@ const Header = (): JSX.Element => {
                         <p className='text-lg text-white hover:underline underline-offset-4'>PROFILES</p>
                     </Link>
                 </nav>
-                <div className='hidden max-lg:block size-8 text-white cursor-pointer' onClick={toggleOpen}>
+                <div className='hidden max-lg:block size-6 fill-white cursor-pointer' onClick={toggleOpen}>
                     <HamburgerMenuSvg />
                 </div>
             </div>

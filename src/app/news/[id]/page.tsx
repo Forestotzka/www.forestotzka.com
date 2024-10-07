@@ -44,13 +44,13 @@ const Home = async ({ params }: Props): Promise<JSX.Element> => {
             <div className='pb-9 mb-9 border-b-1 border-black/25'>
                 <div className='min-h-8 flex justify-end items-center gap-8 text-gray-500'>
                     <div className='flex gap-2'>
-                        <div className='size-6 text-gray-500'>
+                        <div className='size-6 flex items-center fill-gray-500'>
                             <UpdateSvg />
                         </div>
                         <p>{news.formatLastUpdateDate()}</p>
                     </div>
                     <div className='flex gap-2'>
-                        <div className='size-6 text-gray-500'>
+                        <div className='size-6 flex items-center fill-gray-500'>
                             <CloudUpSvg />
                         </div>
                         <p>{news.formatPostDate()}</p>
