@@ -70,7 +70,7 @@ const Home = async ({ params }: Props): Promise<JSX.Element> => {
                     </div>
                     <div className='flex flex-wrap gap-8'>
                         {blog.staff.map((member, index) => (
-                            <Link key={index} href={`profiles/${member.id}`}>
+                            <Link key={index} href={`/profiles/${member.id}`}>
                                 <div className='flex items-center gap-2 hover:opacity-75 transition-opacity duration-200'>
                                     <div className='w-9 aspect-square rounded-full overflow-hidden'>
                                         <Image

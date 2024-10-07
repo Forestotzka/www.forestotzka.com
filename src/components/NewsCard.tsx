@@ -10,7 +10,7 @@ type Props = {
 const NewsCard = ({ news }: Props): JSX.Element => {
     return (
         <div>
-            <Link href={`${news.type}/${news.id}`} className='hover:opacity-75 transition-opacity duration-200'>
+            <Link href={`/${news.type}/${news.id}`} className='hover:opacity-75 transition-opacity duration-200'>
                 <div className='aspect-video bg-slate-400 rounded-md overflow-hidden'>
                     <Image
                         src={`/resources/${news.type}/${news.id}/image.png`}

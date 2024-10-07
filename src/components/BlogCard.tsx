@@ -10,7 +10,7 @@ type Props = {
 const BlogCard = ({ blog }: Props): JSX.Element => {
     return (
         <div>
-            <Link href={`${blog.type}/${blog.id}`} className='hover:opacity-75 transition-opacity duration-200'>
+            <Link href={`/${blog.type}/${blog.id}`} className='hover:opacity-75 transition-opacity duration-200'>
                 <div className='aspect-video bg-slate-400 rounded-md overflow-hidden'>
                     <Image
                         src={`/resources/${blog.type}/${blog.id}/image.png`}
@@ -29,7 +29,7 @@ const BlogCard = ({ blog }: Props): JSX.Element => {
             </Link>
             <div className='flex flex-wrap gap-2'>
                 {blog.staff.map((member, index) => (
-                    <Link key={index} href={`profiles/${member.id}`}>
+                    <Link key={index} href={`/profiles/${member.id}`}>
                         <div className='mt-1 w-7 aspect-square rounded-full overflow-hidden hover:opacity-75 transition-opacity duration-200'>
                             <Image
                                 src={`/staff/${member.id}/icon.png`}
