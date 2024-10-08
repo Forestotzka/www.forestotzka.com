@@ -1,6 +1,7 @@
 import { GoogleTagManager } from '@next/third-parties/google';
 import { ReactNode } from 'react';
-import RootBody from './RootBody';
+
+import RootBody from '@/components/RootBody';
 
 type Props = {
     children: ReactNode;
