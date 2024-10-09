@@ -13,14 +13,14 @@ const Home = (): JSX.Element => {
     const newsList = getNewsList();
 
     return (
-        <>
+        <div className='pb-32'>
             <PageTitle title='NEWS' />
             <PostCardGrid>
                 {News.descendSortByPostDate(newsList).map((news) => (
                     <NewsCard key={news.id} news={news} />
                 ))}
             </PostCardGrid>
-        </>
+        </div>
     );
 };
 
