@@ -16,7 +16,7 @@ const Home = (): JSX.Element => {
     return (
         <>
             <PageTitle title='PROFILES' />
-            <div className='grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-10 md:gap-y-20'>
+            <div className='pb-32 grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-10 md:gap-y-20'>
                 {staff.map((member) => (
                     <Link key={member.id} href={`/profiles/${member.id}`}>
                         <div className='flex items-center gap-3 hover:opacity-75 transition-opacity duration-200'>
