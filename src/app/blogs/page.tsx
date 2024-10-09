@@ -1,5 +1,3 @@
-import React from 'react';
-
 import BlogCard from '@/components/BlogCard';
 import PageTitle from '@/components/PageTitle';
 import PostCardGrid from '@/components/PostCardGrid';
