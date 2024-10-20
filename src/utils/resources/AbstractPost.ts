@@ -29,6 +29,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
     private _description: string;
     private _postDate: Date;
     private _lastUpdateDate: Date;
+    private _imagePath: string;
 
     public static ascendSortByPostDate<T extends AbstractPost<U>, U extends AbstractPostMetadata>(posts: T[]): T[] {
         return [...posts].sort((a, b) => (a._postDate > b._postDate ? 1 : -1));
@@ -49,6 +50,12 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         this._description = this._metadata.description;
         this._postDate = new Date(this._metadata.post_date);
         this._lastUpdateDate = new Date(this._metadata.last_update_date);
+
+        if (readFileSync.existsSync(`/resources/${this._type}/${this._id}/image.webp`)) {
+            this._imagePath = `/resources/${this._type}/${this._id}/image.webp`
+        } else {
+            this._imagePath = `/resources/${this._type}/${this._id}/image.png`
+        }
     }
 
     protected get metadata(): T {
@@ -84,7 +91,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
     }
 
     public get imagePath(): string {
-        return `/resources/${this._type}/${this._id}/image.png`;
+        return this._imagePath;
     }
 
     public async formatContent(): Promise<string> {
