@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
@@ -51,7 +51,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         this._postDate = new Date(this._metadata.post_date);
         this._lastUpdateDate = new Date(this._metadata.last_update_date);
 
-        if (readFileSync.existsSync(`/resources/${this._type}/${this._id}/image.webp`)) {
+        if (existsSync(`/resources/${this._type}/${this._id}/image.webp`)) {
             this._imagePath = `/resources/${this._type}/${this._id}/image.webp`
         } else {
             this._imagePath = `/resources/${this._type}/${this._id}/image.png`
