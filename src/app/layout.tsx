@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         type: 'website',
         title: Text.forestotzka,
         description: Text.forestotzka_description,
-        images: `${Text.forestotzka_url}/forestotzka-eye-catching.png`,
+        images: `${Text.forestotzka_url}/forestotzka-eye-catching.webp`,
     },
 };
 

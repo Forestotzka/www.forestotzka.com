@@ -15,7 +15,7 @@ const Header = (): JSX.Element => {
                 <Link href='/'>
                     <div className='w-36'>
                         <Image
-                            src='/forestotzka-logo.png'
+                            src='/forestotzka-logo.webp'
                             alt='Forestotzka Logo'
                             priority={true}
                             width={0}
