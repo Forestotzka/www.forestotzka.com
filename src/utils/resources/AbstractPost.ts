@@ -5,8 +5,9 @@ import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
-import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeClassNames from 'rehype-class-names';
+import rehypeStarryNight from 'rehype-starry-night';
+import { all } from '@wooorm/starry-night';
 
 import { PostType } from '@/types/PostType';
 import { remarkFixImgPath } from '@/utils/unifiedPlugins/remarkFixImgPath';
@@ -96,13 +97,12 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
             })
             .use(remarkGfm)
             .use(remarkRehype)
-            .use(rehypePrettyCode, {
-                theme: 'one-dark-pro',
-                defaultLang: 'text',
+            .use(rehypeStarryNight, {
+                grammars: all,
             })
             .use(rehypeStringify)
             .use(rehypeClassNames, {
-                figure: 'text-xl',
+                'pre > code': 'not-prose',
             })
             .process(this._content);
 

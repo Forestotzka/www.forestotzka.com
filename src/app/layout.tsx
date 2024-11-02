@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
 
+import '@wooorm/starry-night/style/dark';
+
 import '@/styles/globals.css';
 
 import Root from '@/components/Root';
