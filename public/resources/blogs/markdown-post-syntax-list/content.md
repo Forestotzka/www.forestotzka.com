@@ -255,10 +255,10 @@ ABC = 12345
 }
 ```
 
-## コードブロックタイトル
+## シンタックスハイライトの例（JavaScript）
 
 ````
-```js title="main.js"
+```js
 function main() {
     console.log('Hello World');
 }
@@ -267,16 +267,16 @@ function main() {
 
 ↓ 実際の表示 ↓
 
-```js title="main.js"
+```js
 function main() {
     console.log('Hello World');
 }
 ```
 
-## コードブロックキャプション
+## シンタックスハイライトの例（Python）
 
 ````
-```py caption="ここにキャプションを記入"
+```py
 def main(x):
     print("Hello World")
 ```
@@ -284,15 +284,15 @@ def main(x):
 
 ↓ 実際の表示 ↓
 
-```py caption="ここにキャプションを記入"
+```py
 def main(x):
     print("Hello World")
 ```
 
-## 行番号
+## シンタックスハイライトの例（Java）
 
 ````
-```java showLineNumbers
+```java
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World");
@@ -303,12 +303,46 @@ public class Main {
 
 ↓ 実際の表示 ↓
 
-```java showLineNumbers
+```java
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World");
     }
 }
+```
+
+## シンタックスハイライトの例（mcfunction）
+
+````
+```mcfunction
+#> core:tick
+#
+# IMP-Doc
+#
+# @within tag/function minecraft:tick
+
+# Comment
+execute as @a at @s run function core:tick/player
+
+# Comment
+tellraw @a [{"text":"mcfunction"}]
+```
+````
+
+↓ 実際の表示 ↓
+
+```mcfunction
+#> core:tick
+#
+# IMP-Doc
+#
+# @within tag/function minecraft:tick
+
+# Comment
+execute as @a at @s run function core:tick/player
+
+# Comment
+tellraw @a [{"text":"mcfunction"}]
 ```
 
 ---
