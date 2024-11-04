@@ -1,1 +1,1 @@
-export type PostType = 'news';
+export type PostType = 'news' | 'blogs';

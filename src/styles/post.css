@@ -1,0 +1,23 @@
+th[align='left'],
+td[align='left'] {
+    text-align: left;
+}
+
+th[align='right'],
+td[align='right'] {
+    text-align: right;
+}
+
+th[align='center'],
+td[align='center'] {
+    text-align: center;
+}
+
+ul.contains-task-list {
+    list-style: none;
+    padding-left: 0px;
+}
+
+li.task-list-item > input[type='checkbox'] {
+    @apply mr-3;
+}

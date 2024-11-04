@@ -1,10 +1,10 @@
-import React from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
 
 import UpdateSvg from '@/components/svg/UpdateSvg';
 import CloudUpSvg from '@/components/svg/CloudUpSvg';
 import { News } from '@/utils/resources/News';
+import { Text } from '@/utils/Text';
 
 type Param = {
     id: string;
@@ -20,11 +20,13 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
     const news = new News(params.id);
 
     return {
-        title: `${news.title} | エアリプの森`,
+        title: `${news.title} | ${Text.forestotzka}`,
+        description: news.description,
         openGraph: {
             type: 'website',
-            title: news.title,
+            title: `${news.title} | ${Text.forestotzka}`,
             description: news.description,
+            images: `${Text.forestotzka_url}${news.imagePath}`,
         },
     };
 }
@@ -35,7 +37,7 @@ export function generateStaticParams(): Param[] {
     });
 }
 
-const NewsPage = async ({ params }: Props): Promise<JSX.Element> => {
+const Home = async ({ params }: Props): Promise<JSX.Element> => {
     const news = new News(params.id);
 
     return (
@@ -43,13 +45,13 @@ const NewsPage = async ({ params }: Props): Promise<JSX.Element> => {
             <div className='pb-9 mb-9 border-b-1 border-black/25'>
                 <div className='min-h-8 flex justify-end items-center gap-8 text-gray-500'>
                     <div className='flex gap-2'>
-                        <div className='size-6 text-gray-500'>
+                        <div className='size-6 flex items-center fill-gray-500'>
                             <UpdateSvg />
                         </div>
                         <p>{news.formatLastUpdateDate()}</p>
                     </div>
                     <div className='flex gap-2'>
-                        <div className='size-6 text-gray-500'>
+                        <div className='size-6 flex items-center fill-gray-500'>
                             <CloudUpSvg />
                         </div>
                         <p>{news.formatPostDate()}</p>
@@ -58,7 +60,7 @@ const NewsPage = async ({ params }: Props): Promise<JSX.Element> => {
                 <h1 className='py-5 font-semibold text-2xl lg:text-4xl'>{news.title}</h1>
                 <div className='aspect-video bg-slate-400'>
                     <Image
-                        src={`/resources/news/${news.id}/image.png`}
+                        src={news.imagePath}
                         alt='News Thumbnail'
                         priority={true}
                         width={0}
@@ -73,4 +75,4 @@ const NewsPage = async ({ params }: Props): Promise<JSX.Element> => {
     );
 };
 
-export default NewsPage;
+export default Home;

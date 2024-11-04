@@ -1,21 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { PostType } from '@/types/PostType';
-import { AbstractPost, AbstractPostMetadata } from '@/utils/resources/AbstractPost';
+import { News } from '@/utils/resources/News';
 
 type Props = {
-    post: AbstractPost<AbstractPostMetadata>;
-    postType: PostType;
+    news: News;
 };
 
-const PostCard = ({ post, postType }: Props): JSX.Element => {
+const NewsCard = ({ news }: Props): JSX.Element => {
     return (
         <div>
-            <Link href={`${postType}/${post.id}`} className='hover:opacity-75 transition-opacity duration-200'>
+            <Link href={`/${news.type}/${news.id}`} className='hover:opacity-75 transition-opacity duration-200'>
                 <div className='aspect-video bg-slate-400 rounded-md overflow-hidden'>
                     <Image
-                        src={`/resources/${postType}/${post.id}/image.png`}
+                        src={news.imagePath}
                         alt='Post Thumbnail'
                         priority={false}
                         width={0}
@@ -25,12 +23,12 @@ const PostCard = ({ post, postType }: Props): JSX.Element => {
                     />
                 </div>
                 <div className='min-h-7 flex items-center'>
-                    <p className='text-sm text-gray-500'>{post.formatPostDate()}</p>
+                    <p className='text-sm text-gray-500'>{news.formatPostDate()}</p>
                 </div>
-                <p>{post.title}</p>
+                <p>{news.title}</p>
             </Link>
         </div>
     );
 };
 
-export default PostCard;
+export default NewsCard;

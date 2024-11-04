@@ -1,20 +1,20 @@
-import { transformerCopyButton } from '@rehype-pretty/transformers';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { Image } from 'mdast';
-import { Node } from 'unist';
-import { visit } from 'unist-util-visit';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
-import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeClassNames from 'rehype-class-names';
+import rehypeStarryNight from 'rehype-starry-night';
+import { all } from '@wooorm/starry-night';
 
 import { PostType } from '@/types/PostType';
+import { remarkFixImgPath } from '@/utils/unifiedPlugins/remarkFixImgPath';
 
 export type AbstractPostMetadata = {
     title: string;
+    description: string;
     post_date: string;
     last_update_date: string;
 };
@@ -27,14 +27,15 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
     private _content: string;
     private _metadata: T;
     private _title: string;
+    private _description: string;
     private _postDate: Date;
     private _lastUpdateDate: Date;
 
-    public static ascendSortByPostDate(posts: AbstractPost<AbstractPostMetadata>[]): AbstractPost<AbstractPostMetadata>[] {
+    public static ascendSortByPostDate<T extends AbstractPost<U>, U extends AbstractPostMetadata>(posts: T[]): T[] {
         return [...posts].sort((a, b) => (a._postDate > b._postDate ? 1 : -1));
     }
 
-    public static descendSortByPostDate(posts: AbstractPost<AbstractPostMetadata>[]): AbstractPost<AbstractPostMetadata>[] {
+    public static descendSortByPostDate<T extends AbstractPost<U>, U extends AbstractPostMetadata>(posts: T[]): T[] {
         return [...posts].sort((a, b) => (a._postDate < b._postDate ? 1 : -1));
     }
 
@@ -46,6 +47,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         this._content = readFileSync(join(basePath, 'content.md'), 'utf-8');
         this._metadata = JSON.parse(readFileSync(join(basePath, 'metadata.json'), 'utf-8'));
         this._title = this._metadata.title;
+        this._description = this._metadata.description;
         this._postDate = new Date(this._metadata.post_date);
         this._lastUpdateDate = new Date(this._metadata.last_update_date);
     }
@@ -58,7 +60,7 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         return this._id;
     }
 
-    public get type(): string {
+    public get type(): PostType {
         return this._type;
     }
 
@@ -70,6 +72,10 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         return this._title;
     }
 
+    public get description(): string {
+        return this._description;
+    }
+
     public get postDate(): Date {
         return this._postDate;
     }
@@ -78,23 +84,25 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         return this._lastUpdateDate;
     }
 
+    public get imagePath(): string {
+        return `/resources/${this._type}/${this._id}/image.png`;
+    }
+
     public async formatContent(): Promise<string> {
         const content = await unified()
             .use(remarkParse)
-            .use(this.remarkFixImgPath.bind(this))
+            .use(remarkFixImgPath, {
+                id: this._id,
+                type: this._type,
+            })
+            .use(remarkGfm)
             .use(remarkRehype)
-            .use(rehypePrettyCode, {
-                theme: 'one-dark-pro',
-                transformers: [
-                    transformerCopyButton({
-                        visibility: 'hover',
-                        feedbackDuration: 3_000,
-                    }),
-                ],
+            .use(rehypeStarryNight, {
+                grammars: all,
             })
             .use(rehypeStringify)
             .use(rehypeClassNames, {
-                figure: 'text-xl',
+                'pre > code': 'not-prose',
             })
             .process(this._content);
 
@@ -119,17 +127,5 @@ export abstract class AbstractPost<T extends AbstractPostMetadata> {
         });
 
         return timeFormat.format(this._lastUpdateDate);
-    }
-
-    private remarkFixImgPath(): (tree: Node) => void {
-        return (tree: Node) => {
-            visit(tree, 'image', (node: Image) => {
-                if (node.url.startsWith('/public')) {
-                    node.url = node.url.replace('/public', '');
-                } else if (!(node.url.startsWith('https://') || node.url.startsWith('http://'))) {
-                    node.url = `/resources/${this._type}/${this._id}/${node.url}`;
-                }
-            });
-        };
     }
 }

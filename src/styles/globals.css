@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './syntax-highlighting.css';
+@import './post.css';
 
 :root {
     --background: #ffffff;

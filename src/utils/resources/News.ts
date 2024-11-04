@@ -3,25 +3,14 @@ import { join } from 'path';
 
 import { AbstractPost, AbstractPostMetadata, RESOURCES_PATH } from '@/utils/resources/AbstractPost';
 
-type NewsMetadata = AbstractPostMetadata & {
-    description: string;
-};
+const RESOURCE_NAME = 'news';
 
-const resourceName = 'news';
-
-export class News extends AbstractPost<NewsMetadata> {
-    private _description: string;
-
+export class News extends AbstractPost<AbstractPostMetadata> {
     public static getIds(): string[] {
-        return readdirSync(join(RESOURCES_PATH, resourceName), 'utf-8');
+        return readdirSync(join(RESOURCES_PATH, RESOURCE_NAME), 'utf-8');
     }
 
     constructor(id: string) {
-        super(id, resourceName);
-        this._description = this.metadata.description;
-    }
-
-    public get description(): string {
-        return this._description;
+        super(id, RESOURCE_NAME);
     }
 }

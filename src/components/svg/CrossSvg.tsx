@@ -1,11 +1,10 @@
+/**
+ * Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
+ */
 const CrossSvg = (): JSX.Element => {
     return (
-        <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-            <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
-            <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
-            <g id='SVGRepo_iconCarrier'>
-                <path d='M19 5L4.99998 19M5.00001 5L19 19' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round'></path>
-            </g>
+        <svg xmlns='http://www.w3.org/2000/svg' width='100%' viewBox='0 0 384 512'>
+            <path d='M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z' />
         </svg>
     );
 };

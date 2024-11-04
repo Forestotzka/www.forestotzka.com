@@ -1,29 +1,27 @@
-import React from 'react';
-
 import PageTitle from '@/components/PageTitle';
-import PostCard from '@/components/PostCard';
+import NewsCard from '@/components/NewsCard';
 import PostCardGrid from '@/components/PostCardGrid';
-import { News as NewsClass } from '@/utils/resources/News';
+import { News } from '@/utils/resources/News';
 
-const getNewsList = (): NewsClass[] => {
-    return NewsClass.getIds().map((id) => {
-        return new NewsClass(id);
+const getNewsList = (): News[] => {
+    return News.getIds().map((id) => {
+        return new News(id);
     });
 };
 
-const News = (): JSX.Element => {
+const Home = (): JSX.Element => {
     const newsList = getNewsList();
 
     return (
-        <>
+        <div className='pb-32'>
             <PageTitle title='NEWS' />
             <PostCardGrid>
-                {NewsClass.descendSortByPostDate(newsList).map((news) => (
-                    <PostCard key={news.id} post={news} postType='news' />
+                {News.descendSortByPostDate(newsList).map((news) => (
+                    <NewsCard key={news.id} news={news} />
                 ))}
             </PostCardGrid>
-        </>
+        </div>
     );
 };
 
-export default News;
+export default Home;
