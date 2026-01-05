@@ -21,8 +21,9 @@
 車内では、車窓からの景色を楽しみながら、のんびりと過ごすことができる。  
 途中、吾妻渓谷や浅間山などの美しい風景が広がる。また、揉めに揉めた八ッ場ダムも車窓から見ることができる。長野原草津口駅周辺は、八ッ場ダム建設に伴い大きく変わった地域である。水没してしまったため、街や線路は少し離れた場所へ移動した。
 
-![特急草津・四万号](https://www.jreast.co.jp/multi/traininformation/kusatsu_shima/img/mv_pc.jpg)
-JR東日本公式サイトより引用: https://www.jreast.co.jp/multi/traininformation/kusatsu_shima/
+![特急草津・四万号](./kusatsu-shima-express.jpg)
+ちなみにこの日は臨時列車であったため、国鉄色E653系が充当されていた。
+JR東日本公式サイト: https://www.jreast.co.jp/multi/traininformation/kusatsu_shima/
 
 ### 11:45 バスで草津温泉へ
 長野原草津口駅から草津温泉までは、バスで約30分である。  
