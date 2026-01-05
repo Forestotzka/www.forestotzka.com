@@ -70,7 +70,7 @@ const Home = async ({ params }: Props): Promise<JSX.Element> => {
                     />
                 </div>
             </div>
-            <article className='prose prose-sm lg:prose-base prose-blue' dangerouslySetInnerHTML={{ __html: await news.formatContent() }}></article>
+            <article className='prose prose-sm lg:prose-base prose-blue break-words' dangerouslySetInnerHTML={{ __html: await news.formatContent() }}></article>
         </div>
     );
 };
