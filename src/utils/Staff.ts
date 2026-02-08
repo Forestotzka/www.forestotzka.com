@@ -7,12 +7,12 @@ export type StaffCareerItem = {
     title: string;
     org?: string;
     description?: string;
-    links?: Array<{ label: string; url: string }>;
+    links?: Array<{ label: string; url?: string }>;
 };
 
 export type StaffPortfolioItem = {
     title: string;
-    url: string;
+    url?: string;
     description?: string;
     tags?: string[];
 };

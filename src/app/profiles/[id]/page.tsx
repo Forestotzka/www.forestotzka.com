@@ -143,9 +143,20 @@ const Home = ({ params }: Props): JSX.Element => {
                                     {item.links && item.links.length > 0 && (
                                         <div className='pt-3 flex flex-wrap gap-3'>
                                             {item.links.map((link, linkIndex) => (
-                                                <a key={linkIndex} href={link.url} target='_blank' rel='noreferrer' className='text-sm underline underline-offset-4 hover:opacity-75'>
-                                                    {link.label}
-                                                </a>
+                                                <div key={linkIndex}>
+                                                    {link.url ? (
+                                                        <a
+                                                            href={link.url}
+                                                            target='_blank'
+                                                            rel='noreferrer'
+                                                            className='text-sm underline underline-offset-4 hover:opacity-75'
+                                                        >
+                                                            {link.label}
+                                                        </a>
+                                                    ) : (
+                                                        <span className='text-sm text-gray-600'>{link.label}</span>
+                                                    )}
+                                                </div>
                                             ))}
                                         </div>
                                     )}
@@ -160,12 +171,20 @@ const Home = ({ params }: Props): JSX.Element => {
                         <h2 className='text-lg font-semibold'>PORTFOLIO</h2>
                         <div className='pt-4 grid grid-cols-1 gap-4'>
                             {staff.portfolio.map((work, index) => (
-                                <a key={index} href={work.url} target='_blank' rel='noreferrer' className='block p-4 rounded-xl border border-gray-200 hover:opacity-80 transition-opacity'>
+                                <div key={index} className='block p-4 rounded-xl border border-gray-200'>
                                     <div className='flex items-center justify-between gap-3'>
-                                        <p className='text-base font-medium break-words'>{work.title}</p>
-                                        <div className='size-5 flex-shrink-0 fill-gray-700'>
-                                            <LinkSvg />
-                                        </div>
+                                        {work.url ? (
+                                            <a href={work.url} target='_blank' rel='noreferrer' className='flex-grow hover:opacity-80 transition-opacity'>
+                                                <p className='text-base font-medium break-words'>{work.title}</p>
+                                            </a>
+                                        ) : (
+                                            <p className='text-base font-medium break-words'>{work.title}</p>
+                                        )}
+                                        {work.url && (
+                                            <a href={work.url} target='_blank' rel='noreferrer' className='size-5 flex-shrink-0 fill-gray-700 hover:opacity-80 transition-opacity'>
+                                                <LinkSvg />
+                                            </a>
+                                        )}
                                     </div>
                                     {work.description && <p className='pt-2 text-sm leading-6 whitespace-pre-line text-gray-700'>{work.description}</p>}
                                     {work.tags && work.tags.length > 0 && (
@@ -177,7 +196,7 @@ const Home = ({ params }: Props): JSX.Element => {
                                             ))}
                                         </div>
                                     )}
-                                </a>
+                                </div>
                             ))}
                         </div>
                     </section>
