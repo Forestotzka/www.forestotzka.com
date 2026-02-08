@@ -97,8 +97,110 @@ const Home = ({ params }: Props): JSX.Element => {
                     </div>
                 </div>
             </div>
-            <div className='pt-8'>
+            <div className='pt-8 flex flex-col gap-10'>
                 <p className='text-xl text-center break-words'>{staff.introduction}</p>
+
+                {staff.bio && (
+                    <section className='max-w-3xl mx-auto w-full'>
+                        <h2 className='text-lg font-semibold'>ABOUT</h2>
+                        <p className='pt-3 text-base leading-7 whitespace-pre-line break-words text-gray-700'>{staff.bio}</p>
+                    </section>
+                )}
+
+                {staff.skills.length > 0 && (
+                    <section className='max-w-3xl mx-auto w-full'>
+                        <h2 className='text-lg font-semibold'>SKILLS</h2>
+                        <div className='pt-3 flex flex-wrap gap-2'>
+                            {staff.skills.map((skill) => (
+                                <span key={skill} className='px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm'>
+                                    {skill}
+                                </span>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {staff.career.length > 0 && (
+                    <section className='max-w-3xl mx-auto w-full'>
+                        <h2 className='text-lg font-semibold'>CAREER</h2>
+                        <div className='pt-4 flex flex-col gap-5'>
+                            {staff.career.map((item, index) => (
+                                <div key={index} className='p-4 rounded-xl border border-gray-200'>
+                                    <div className='flex flex-col md:flex-row md:items-baseline md:justify-between gap-1'>
+                                        <p className='text-base font-medium'>
+                                            {item.title}
+                                            {item.org ? <span className='text-gray-500'> / {item.org}</span> : null}
+                                        </p>
+                                        {(item.from || item.to) && (
+                                            <p className='text-sm text-gray-500'>
+                                                {item.from ?? ''}
+                                                {item.from || item.to ? ' - ' : ''}
+                                                {item.to ?? ''}
+                                            </p>
+                                        )}
+                                    </div>
+                                    {item.description && <p className='pt-2 text-sm leading-6 whitespace-pre-line text-gray-700'>{item.description}</p>}
+                                    {item.links && item.links.length > 0 && (
+                                        <div className='pt-3 flex flex-wrap gap-3'>
+                                            {item.links.map((link, linkIndex) => (
+                                                <div key={linkIndex}>
+                                                    {link.url ? (
+                                                        <a
+                                                            href={link.url}
+                                                            target='_blank'
+                                                            rel='noreferrer'
+                                                            className='text-sm underline underline-offset-4 hover:opacity-75'
+                                                        >
+                                                            {link.label}
+                                                        </a>
+                                                    ) : (
+                                                        <span className='text-sm text-gray-600'>{link.label}</span>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {staff.portfolio.length > 0 && (
+                    <section className='max-w-3xl mx-auto w-full'>
+                        <h2 className='text-lg font-semibold'>PORTFOLIO</h2>
+                        <div className='pt-4 grid grid-cols-1 gap-4'>
+                            {staff.portfolio.map((work, index) => (
+                                <div key={index} className='block p-4 rounded-xl border border-gray-200'>
+                                    <div className='flex items-center justify-between gap-3'>
+                                        {work.url ? (
+                                            <a href={work.url} target='_blank' rel='noreferrer' className='flex-grow hover:opacity-80 transition-opacity'>
+                                                <p className='text-base font-medium break-words'>{work.title}</p>
+                                            </a>
+                                        ) : (
+                                            <p className='text-base font-medium break-words'>{work.title}</p>
+                                        )}
+                                        {work.url && (
+                                            <a href={work.url} target='_blank' rel='noreferrer' className='size-5 flex-shrink-0 fill-gray-700 hover:opacity-80 transition-opacity'>
+                                                <LinkSvg />
+                                            </a>
+                                        )}
+                                    </div>
+                                    {work.description && <p className='pt-2 text-sm leading-6 whitespace-pre-line text-gray-700'>{work.description}</p>}
+                                    {work.tags && work.tags.length > 0 && (
+                                        <div className='pt-3 flex flex-wrap gap-2'>
+                                            {work.tags.map((tag) => (
+                                                <span key={tag} className='px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 text-xs'>
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
             </div>
         </>
     );
