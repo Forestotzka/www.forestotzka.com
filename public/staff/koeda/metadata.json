@@ -2,8 +2,56 @@
     "name": "こえだ",
     "description": "プラグインを書く人",
     "introduction": "エアリプの森の研究員",
+    "bio": "Minecraft周りのツールやプラグインを書いたり、サーバー運用や仕組みづくりを触る人です。\"Secure by Design\"と言う言葉が好き。",
+    "skills": [
+        "Java (6+ years)",
+        "Kotlin",
+        "Rust",
+        "Minecraft Plugin (Bukkit/Spigot/Paper)",
+        "AWS",
+        "Game Design"
+    ],
+    "portfolio": [
+        {
+            "title": "アンチチートシステム・ラグ予測エンジン",
+            "url": "https://github.com/matsu1213/Grim",
+            "description": "アンチチートシステムとラグ予測エンジンを備えたMinecraftサーバープラグイン（フォーク）。非公開ですが、ヒューリスティック検出も制作したこともあります。",
+            "tags": ["Java", "Game", "Minecraft", "Anticheat"]
+        },
+        {
+            "title": "ゲーム制作・運営",
+            "url": "https://www.azisaba.net/",
+            "description": "日本最大規模のマインクラフトサーバー、アジ鯖の運営。ゲームデザイン、システム設計、プラグイン開発、インフラ保守などを担当しています。",
+            "tags": ["Minecraft", "Server"]
+        },
+        {
+            "title": "「コミュニティノート(X)」のトップライター",
+            "url": "https://www.forestotzka.com/blogs/community-notes-2024-shugiin/",
+            "description": "Xのコミュニティノートにて、日本のトップライターおよび評価者として活動し、誤情報の訂正や信頼性向上に貢献しました。",
+            "tags": ["SNS", "Research"]
+        },
+        {
+            "title": "オンラインプラットフォームにおける違反行為の緩和",
+            "url": "利用不可",
+            "description": "プラットフォームの安全性を向上させる方法について研究し、違反件数の大幅な減少を実現しました。",
+            "tags": ["Research"]
+        },
+        {
+            "title": "開発中：オンラインゲームにおけるラグ緩和技術",
+            "url": "https://github.com/matsu1213/Grim"
+        },
+        {
+            "title": "開発中：ダンジョン生成アルゴリズム",
+            "url": "利用不可"
+        },
+        {
+            "title": "開発中：TCP SYN fingerprinting",
+            "url": "https://github.com/matsu1213/xdptest/"
+        }
+    ],
     "link": {
         "youtube": "https://www.youtube.com/@Koeda_",
-        "twitter": "https://x.com/matsu1213_"
+        "twitter": "https://x.com/matsu1213_",
+        "others": ["https://github.com/matsu1213"]
     }
 }

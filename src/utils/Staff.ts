@@ -1,10 +1,30 @@
 import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 
+export type StaffCareerItem = {
+    from?: string;
+    to?: string;
+    title: string;
+    org?: string;
+    description?: string;
+    links?: Array<{ label: string; url: string }>;
+};
+
+export type StaffPortfolioItem = {
+    title: string;
+    url: string;
+    description?: string;
+    tags?: string[];
+};
+
 type StaffMetadata = {
     name: string;
     description: string;
     introduction: string;
+    bio?: string;
+    skills?: string[];
+    career?: StaffCareerItem[];
+    portfolio?: StaffPortfolioItem[];
     link?: Link;
 };
 
@@ -22,6 +42,10 @@ export class Staff {
     private _name: string;
     private _description: string;
     private _introduction: string;
+    private _bio?: string;
+    private _skills: string[];
+    private _career: StaffCareerItem[];
+    private _portfolio: StaffPortfolioItem[];
     private _link: Link;
 
     public static getIds(): string[] {
@@ -34,6 +58,10 @@ export class Staff {
         this._name = this._metadata.name;
         this._description = this._metadata.description;
         this._introduction = this._metadata.introduction;
+        this._bio = this._metadata.bio;
+        this._skills = this._metadata.skills ?? [];
+        this._career = this._metadata.career ?? [];
+        this._portfolio = this._metadata.portfolio ?? [];
         this._link = this._metadata.link ?? {};
     }
 
@@ -51,6 +79,22 @@ export class Staff {
 
     public get introduction(): string {
         return this._introduction;
+    }
+
+    public get bio(): string | undefined {
+        return this._bio;
+    }
+
+    public get skills(): string[] {
+        return this._skills;
+    }
+
+    public get career(): StaffCareerItem[] {
+        return this._career;
+    }
+
+    public get portfolio(): StaffPortfolioItem[] {
+        return this._portfolio;
     }
 
     public get link(): Link {
