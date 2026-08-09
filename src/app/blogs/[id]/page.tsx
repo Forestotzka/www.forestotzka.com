@@ -12,13 +12,14 @@ type Param = {
 };
 
 type Props = {
-    params: Param;
+    params: Promise<Param>;
 };
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: { id: string } }): Metadata {
-    const blog = new Blog(params.id);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    const blog = new Blog(id);
 
     return {
         title: `${blog.title} | ${Text.forestotzka}`,
@@ -39,7 +40,8 @@ export function generateStaticParams(): Param[] {
 }
 
 const Home = async ({ params }: Props): Promise<JSX.Element> => {
-    const blog = new Blog(params.id);
+    const { id } = await params;
+    const blog = new Blog(id);
     const content = await blog.formatContent();
 
     return (
