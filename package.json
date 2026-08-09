@@ -4,15 +4,15 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "next build --webpack",
         "start": "next start",
         "lint": "next lint"
     },
     "dependencies": {
-        "@next/third-parties": "^14.2.14",
+        "@next/third-parties": "^16.3.0",
         "@tailwindcss/typography": "^0.5.15",
         "@wooorm/starry-night": "^3.5.0",
-        "next": "14.2.13",
+        "next": "^16.3.0",
         "react": "^18",
         "react-dom": "^18",
         "rehype-class-names": "^2.0.0",
@@ -26,14 +26,13 @@
         "unist-util-visit": "^5.0.0"
     },
     "devDependencies": {
-        "@cloudflare/next-on-pages": "^1.13.3",
         "@types/mdast": "^4.0.4",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
         "@types/unist": "^3.0.3",
-        "eslint": "^8",
-        "eslint-config-next": "14.2.13",
+        "eslint": "^9.39.5",
+        "eslint-config-next": "^16.3.0",
         "eslint-config-prettier": "^9.1.0",
         "postcss": "^8",
         "prettier": "^3.3.3",

@@ -14,13 +14,14 @@ type Param = {
 };
 
 type Props = {
-    params: Param;
+    params: Promise<Param>;
 };
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: { id: string } }): Metadata {
-    const staff = new Staff(params.id);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    const staff = new Staff(id);
 
     return {
         title: `${staff.name} | ${Text.forestotzka}`,
@@ -43,8 +44,9 @@ export function generateStaticParams(): Param[] {
     });
 }
 
-const Home = ({ params }: Props): JSX.Element => {
-    const staff = new Staff(params.id);
+const Home = async ({ params }: Props): Promise<JSX.Element> => {
+    const { id } = await params;
+    const staff = new Staff(id);
 
     return (
         <>

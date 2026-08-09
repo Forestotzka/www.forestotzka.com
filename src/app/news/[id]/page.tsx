@@ -11,13 +11,14 @@ type Param = {
 };
 
 type Props = {
-    params: Param;
+    params: Promise<Param>;
 };
 
 export const dynamicParams = false;
 
-export function generateMetadata({ params }: { params: { id: string } }): Metadata {
-    const news = new News(params.id);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    const news = new News(id);
 
     return {
         title: `${news.title} | ${Text.forestotzka}`,
@@ -38,7 +39,8 @@ export function generateStaticParams(): Param[] {
 }
 
 const Home = async ({ params }: Props): Promise<JSX.Element> => {
-    const news = new News(params.id);
+    const { id } = await params;
+    const news = new News(id);
 
     return (
         <div className='py-14 px-2 max-w-4xl mx-auto'>
