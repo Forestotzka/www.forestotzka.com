@@ -17,7 +17,7 @@ const posts = getPosts()
   .filter((post) => post.data.authors?.includes(member.id))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
-<BaseLayout title={member.name}>
+<BaseLayout title={member.name} description={member.bio} image={member.icon} type="profile" card="summary">
   <header class="page-heading member-heading">
     <Image src={member.icon} alt={`${member.name}のアイコン`} width="88" height="88" loading="eager" />
     <div>

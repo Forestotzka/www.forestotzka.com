@@ -10,7 +10,8 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
-  type?: 'website' | 'article';
+  type?: 'website' | 'article' | 'profile';
+  card?: 'summary' | 'summary_large_image' | 'app' | 'player';
 }
 
 const {
@@ -18,6 +19,7 @@ const {
   description = 'いろんな記事を書いています。',
   image = '/images/site-eye-catching.png',
   type = 'website',
+  card = 'summary_large_image',
 } = Astro.props;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? Astro.site?.toString() ?? Astro.url.origin;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
@@ -44,7 +46,7 @@ const optimizedSiteIcon = await getImage({
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:alt" content={title} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={card} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
