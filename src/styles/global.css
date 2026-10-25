@@ -130,7 +130,6 @@ main {
 /* 最新記事 */
 .post-grid.recent-post {
   grid-template-columns: 1fr;
-  padding: 0 100px;
 }
 
 .post-grid.recent-post .post-card .post-card-thumbnail img {

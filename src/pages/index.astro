@@ -13,12 +13,12 @@ const posts = getPosts().sort((a, b) => b.data.date.valueOf() - a.data.date.valu
   <section class="section-heading">
     <div>
       <div class="recent-posts-header">
-        <h2>最近の記事</h2>
+        <h2>その他の記事</h2>
         <a href="/posts/">すべて見る →</a>
       </div>
     </div>
   </section>
   <div class="post-grid">
-    {posts.slice(0, 3).map((post) => <PostCard post={post} eager />)}
+    {posts.slice(1, 4).map((post) => <PostCard post={post} eager />)}
   </div>
 </BaseLayout>
