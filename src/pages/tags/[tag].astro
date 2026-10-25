@@ -1,0 +1,32 @@
+---
+import { getPosts } from '../../data/posts';
+import { getAllTags, isSearchableTag } from '../../data/tags';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import PostLayoutToggle from '../../components/PostLayoutToggle.astro';
+
+export function getStaticPaths() {
+  return getAllTags()
+    .filter(isSearchableTag)
+    .map((tag) => ({
+      params: { tag },
+      props: { tag },
+    }));
+}
+
+const { tag } = Astro.props;
+const posts = getPosts()
+  .filter((post) => post.data.tags.includes(tag))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title={`タグ: ${tag}`}>
+  <header class="page-heading">
+    <p class="eyebrow">TAG</p>
+    <h1>#{tag}</h1>
+    <p>{posts.length}件の記事</p>
+  </header>
+  <PostLayoutToggle />
+  <div class="post-grid post-grid-selectable" data-post-layout-target>
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</BaseLayout>

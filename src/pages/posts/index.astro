@@ -1,0 +1,83 @@
+---
+import { getPosts } from '../../data/posts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import PostLayoutToggle from '../../components/PostLayoutToggle.astro';
+
+const posts = getPosts().sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const from = Astro.url.searchParams.get('from') ?? '';
+const to = Astro.url.searchParams.get('to') ?? '';
+const sort = Astro.url.searchParams.get('sort') === 'asc' ? 'asc' : 'desc';
+const hasQueryParameters = Astro.url.searchParams.has('from') || Astro.url.searchParams.has('to') || Astro.url.searchParams.has('sort');
+---
+<BaseLayout title="記事">
+  <header class="page-heading">
+    <p class="eyebrow">ALL POSTS</p>
+    <h1>記事</h1>
+    <p>のんびり記事を書いています。</p>
+  </header>
+  <details class="filter-panel" open={hasQueryParameters}>
+    <summary>フィルタ・並べ替え</summary>
+    <form class="date-filter" method="get">
+      <label>開始日<input type="date" name="from" value={from} /></label>
+      <span aria-hidden="true">〜</span>
+      <label>終了日<input type="date" name="to" value={to} /></label>
+      <label class="filter-section">並べ替え
+        <select name="sort">
+          <option value="desc" selected={sort === 'desc'}>新しい順</option>
+          <option value="asc" selected={sort === 'asc'}>古い順</option>
+        </select>
+      </label>
+      <button class="button filter-section" type="submit">適用</button>
+      <a class="filter-reset" data-filter-reset href="/posts/" hidden>リセット</a>
+    </form>
+  </details>
+  <PostLayoutToggle count={`${posts.length}件の記事`} />
+  <p class="filter-result" data-filter-result hidden>{posts.length}件の記事</p>
+  <div class="post-grid post-grid-selectable" data-post-layout-target>
+    {posts.map((post, index) => <PostCard post={post} eager={index < 3} />)}
+  </div>
+</BaseLayout>
+<script>
+  // クライアント側で日付フィルターと並べ替えを反映する。
+  const applyPostFilters = () => {
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get('from') ?? '';
+    const to = params.get('to') ?? '';
+    const sort = params.get('sort') === 'asc' ? 'asc' : 'desc';
+    const fromInput = document.querySelector<HTMLInputElement>('input[name="from"]');
+    const toInput = document.querySelector<HTMLInputElement>('input[name="to"]');
+    const sortInput = document.querySelector<HTMLSelectElement>('select[name="sort"]');
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-post-date]')];
+    const result = document.querySelector<HTMLElement>('[data-filter-result]');
+    const count = document.querySelector<HTMLElement>('[data-post-count]');
+    const list = document.querySelector<HTMLElement>('.post-grid');
+    const panel = document.querySelector<HTMLDetailsElement>('.filter-panel');
+    const reset = document.querySelector<HTMLElement>('[data-filter-reset]');
+    const hasQueryParameters = params.has('from') || params.has('to') || params.has('sort');
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const date = card.dataset.postDate ?? '';
+      const visible = (!from || date >= from) && (!to || date <= to);
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+    cards.sort((a, b) => {
+      const difference = (a.dataset.postDate ?? '').localeCompare(b.dataset.postDate ?? '');
+      return sort === 'asc' ? difference : -difference;
+    }).forEach((card) => list?.append(card));
+
+    if (fromInput) fromInput.value = from;
+    if (toInput) toInput.value = to;
+    if (sortInput) sortInput.value = sort;
+    if (panel) panel.open = hasQueryParameters;
+    if (reset) reset.hidden = !hasQueryParameters;
+    if (result) result.textContent = `${visibleCount}件の記事`;
+    if (count) count.textContent = `${visibleCount}件の記事`;
+  };
+
+  applyPostFilters();
+  document.addEventListener('astro:after-swap', applyPostFilters);
+  document.addEventListener('astro:page-load', applyPostFilters);
+</script>

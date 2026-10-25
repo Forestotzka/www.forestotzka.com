@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { members } from '../../data/members';
+import SocialLinks from '../../components/SocialLinks.astro';
+import { Image } from 'astro:assets';
+---
+<BaseLayout title="メンバー">
+  <header class="page-heading">
+    <p class="eyebrow">MEMBERS</p>
+    <h1>メンバー</h1>
+    <p>えありぷの森で記事を書いているメンバーです。</p>
+  </header>
+  <div class="member-grid">
+    {members.map((member, index) => (
+      <article class="member-card">
+        <a class="member-card-link" href={`/members/${member.id}/`} aria-label={`${member.name}のページを見る`}></a>
+        <Image src={member.icon} alt={`${member.name}のアイコン`} width="96" height="96" loading={index < 2 ? 'eager' : 'lazy'} />
+        <div class="member-card-info">
+          <h2>{member.name}</h2>
+          <p class="member-card-bio">{member.bio}</p>
+          <SocialLinks socials={member.socials} includeOther={false} />
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

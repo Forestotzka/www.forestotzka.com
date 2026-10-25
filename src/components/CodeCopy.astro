@@ -1,0 +1,53 @@
+<script>
+  // Markdownのコードブロックにコピー操作を追加する。
+  const copyButtonLabel = 'コードをコピー';
+  const copyIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="1.5"></rect><path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H16"></path></svg>';
+  const successIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"></path></svg>';
+  const errorIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"></path></svg>';
+
+  const initializeCodeCopy = () => {
+    document.querySelectorAll<HTMLElement>('.prose pre:not([data-copy-ready])').forEach((pre) => {
+      pre.dataset.copyReady = 'true';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block';
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.append(pre);
+
+      const button = document.createElement('button');
+      button.className = 'copy-button';
+      button.type = 'button';
+      button.innerHTML = copyIcon;
+      button.setAttribute('aria-label', copyButtonLabel);
+      wrapper.append(button);
+    });
+  };
+
+  const copyCode = async (button: HTMLButtonElement) => {
+    const pre = button.closest<HTMLElement>('.code-block')?.querySelector('pre');
+    if (!pre) return;
+    const code = pre.querySelector('code')?.textContent ?? pre.textContent ?? '';
+    try {
+      await navigator.clipboard.writeText(code);
+      button.innerHTML = successIcon;
+      button.setAttribute('aria-label', 'コピーしました');
+      button.classList.add('is-copied');
+    } catch {
+      button.innerHTML = errorIcon;
+      button.setAttribute('aria-label', 'コピーできませんでした');
+      button.classList.add('is-error');
+    }
+    window.setTimeout(() => {
+      button.innerHTML = copyIcon;
+      button.setAttribute('aria-label', copyButtonLabel);
+      button.classList.remove('is-copied', 'is-error');
+    }, 2000);
+  };
+
+  initializeCodeCopy();
+  document.addEventListener('click', (event) => {
+    const button = (event.target as Element).closest<HTMLButtonElement>('.copy-button');
+    if (button) void copyCode(button);
+  });
+  document.addEventListener('astro:after-swap', initializeCodeCopy);
+  document.addEventListener('astro:page-load', initializeCodeCopy);
+</script>

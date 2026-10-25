@@ -1,0 +1,23 @@
+---
+import { getAllTags, getTagHref } from '../../data/tags';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tags = getAllTags();
+---
+<BaseLayout title="タグ">
+  <header class="page-heading">
+    <p class="eyebrow">TAGS</p>
+    <h1>タグ</h1>
+    <p>興味のあるテーマから記事を探せます。</p>
+  </header>
+  <div class="tag-cloud">
+    {tags.map((tag) => {
+      const href = getTagHref(tag);
+      return href ? (
+        <a class="tag tag-large" href={href}>#{tag}</a>
+      ) : (
+        <span class="tag tag-large tag-disabled" title="このタグはURLにできない文字を含むため検索できません">#{tag}</span>
+      );
+    })}
+  </div>
+</BaseLayout>

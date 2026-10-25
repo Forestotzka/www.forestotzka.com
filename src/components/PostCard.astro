@@ -1,0 +1,112 @@
+---
+import AuthorList from './AuthorList.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { getTagHref } from '../data/tags';
+
+interface Props {
+  eager?: boolean;
+  post: {
+    slug: string;
+    data: {
+      title: string;
+      description?: string;
+      date: Date;
+      tags: string[];
+      authors?: string[];
+      thumbnail?: ImageMetadata;
+    };
+  };
+}
+
+const { post }: Props = Astro.props;
+const { eager = false } = Astro.props;
+const { data } = post;
+---
+<article class="post-card" data-post-date={data.date.toISOString().slice(0, 10)}>
+  <a class="post-card-thumbnail" href={`/posts/${post.slug}/`} aria-label={`${data.title}を読む`}>
+    {data.thumbnail ? (
+      <Image src={data.thumbnail} alt="" loading={eager ? 'eager' : 'lazy'} />
+    ) : (
+      <Image src="/images/post-thumbnail-fallback.svg" alt="" width={16} height={9} loading={eager ? 'eager' : 'lazy'} />
+    )}
+  </a>
+  <div class="post-card-content">
+    <p class="post-date"><time datetime={data.date.toISOString()}>{data.date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })}</time></p>
+    <h2><a href={`/posts/${post.slug}/`}>{data.title}</a></h2>
+    {data.description && <p class="post-description">{data.description}</p>}
+    <div class="post-card-authors post-card-compact-list">
+        <AuthorList authors={data.authors} compact />
+    </div>
+    <div class="tags post-card-compact-list">
+        {data.tags.map((tag) => {
+          const href = getTagHref(tag);
+          return href ? (
+            <a class="tag" href={href}>#{tag}</a>
+          ) : (
+            <span class="tag tag-disabled" title="このタグはURLにできない文字を含むため検索できません">#{tag}</span>
+          );
+        })}
+        <span class="post-card-ellipsis" aria-hidden="true">…</span>
+    </div>
+  </div>
+</article>
+
+<script>
+  const updateCompactList = (list: HTMLElement) => {
+    const itemContainer = list.querySelector<HTMLElement>('.author-list') ?? list;
+    const items = [...itemContainer.children].filter((item) => !item.classList.contains('post-card-ellipsis')) as HTMLElement[];
+    const ellipsis = itemContainer.querySelector<HTMLElement>('.post-card-ellipsis');
+    if (!ellipsis) return;
+
+    list.classList.remove('is-truncated');
+    items.forEach((item) => {
+      item.hidden = false;
+    });
+    ellipsis.hidden = true;
+
+    const getGap = (element: HTMLElement) => Number.parseFloat(getComputedStyle(element).columnGap) || 0;
+    const itemGap = getGap(itemContainer);
+    const requiredWidth = (count: number, withEllipsis: boolean) => {
+      const itemWidth = items.slice(0, count).reduce((width, item) => width + item.offsetWidth, 0);
+      const itemGaps = Math.max(0, count - 1) * itemGap;
+      const trailingGap = withEllipsis && count > 0 ? itemGap : 0;
+      const ellipsisWidth = withEllipsis ? ellipsis.offsetWidth : 0;
+      return itemWidth + itemGaps + trailingGap + ellipsisWidth;
+    };
+
+    const fits = (count: number, withEllipsis: boolean) => {
+      items.forEach((item, index) => {
+        item.hidden = index >= count;
+      });
+      ellipsis.hidden = !withEllipsis;
+      return requiredWidth(count, withEllipsis) <= list.clientWidth;
+    };
+
+    if (fits(items.length, false)) return;
+
+    for (let count = items.length - 1; count >= 0; count -= 1) {
+      if (fits(count, true)) {
+        list.classList.add('is-truncated');
+        return;
+      }
+    }
+
+    items.forEach((item) => {
+      item.hidden = true;
+    });
+    ellipsis.hidden = false;
+    list.classList.add('is-truncated');
+  };
+
+  const updateAllCompactLists = () => {
+    document.querySelectorAll<HTMLElement>('.post-card-compact-list').forEach(updateCompactList);
+  };
+
+  updateAllCompactLists();
+  window.addEventListener('resize', updateAllCompactLists);
+  document.addEventListener('astro:after-swap', updateAllCompactLists);
+  document.addEventListener('astro:page-load', updateAllCompactLists);
+  document.addEventListener('post-layout-change', updateAllCompactLists);
+  document.fonts?.ready.then(updateAllCompactLists);
+</script>

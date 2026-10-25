@@ -1,0 +1,62 @@
+---
+interface Props {
+  count?: string;
+}
+
+const { count } = Astro.props;
+---
+<div class="post-list-toolbar">
+  {count && <span class="post-list-count" data-post-count>{count}</span>}
+  <div class="post-layout-toggle" data-post-layout-toggle aria-label="記事カードの表示形式">
+  <span>表示形式</span>
+  <button type="button" data-layout="one" aria-pressed="true">1列</button>
+  <button type="button" data-layout="three" aria-pressed="false">3列</button>
+  </div>
+</div>
+
+<script>
+  const storageKey = 'post-layout';
+  const mobileQuery = window.matchMedia('(max-width: 680px)');
+
+  const applyLayout = () => {
+    const targets = document.querySelectorAll<HTMLElement>('[data-post-layout-target]');
+    const toggles = document.querySelectorAll<HTMLElement>('[data-post-layout-toggle]');
+    let layout: 'one' | 'three' = 'one';
+
+    try {
+      if (localStorage.getItem(storageKey) === 'three') layout = 'three';
+    } catch {
+      layout = 'one';
+    }
+
+    if (mobileQuery.matches) layout = 'one';
+    targets.forEach((target) => target.classList.toggle('wide', layout === 'one'));
+    toggles.forEach((toggle) => {
+      toggle.querySelectorAll<HTMLButtonElement>('[data-layout]').forEach((button) => {
+        const selected = button.dataset.layout === layout;
+        button.setAttribute('aria-pressed', String(selected));
+      });
+    });
+    document.dispatchEvent(new CustomEvent('post-layout-change'));
+  };
+
+  const saveLayout = (button: HTMLButtonElement) => {
+    const layout = button.dataset.layout;
+    if (layout !== 'one' && layout !== 'three') return;
+    try {
+      localStorage.setItem(storageKey, layout);
+    } catch {
+      // localStorageが利用できない場合も、現在のページには選択を反映する。
+    }
+    applyLayout();
+  };
+
+  document.addEventListener('click', (event) => {
+    const button = (event.target as Element).closest<HTMLButtonElement>('[data-post-layout-toggle] [data-layout]');
+    if (button) saveLayout(button);
+  });
+  applyLayout();
+  document.addEventListener('astro:after-swap', applyLayout);
+  document.addEventListener('astro:page-load', applyLayout);
+  mobileQuery.addEventListener('change', applyLayout);
+</script>

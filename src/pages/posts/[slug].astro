@@ -1,0 +1,55 @@
+---
+import { getPosts } from '../../data/posts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorList from '../../components/AuthorList.astro';
+import CodeCopy from '../../components/CodeCopy.astro';
+import { getTagHref } from '../../data/tags';
+import ImageLightbox from '../../components/ImageLightbox.astro';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const posts = getPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.thumbnail?.src} type="article">
+  <article class="post-detail">
+    {post.data.thumbnail && <Image class="post-detail-thumbnail" src={post.data.thumbnail} alt="" loading="eager" data-lightbox-source />}
+    <header class="post-detail-header">
+      <p class="post-date"><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })}</time></p>
+      <h1 class="post-title">{post.data.title}</h1>
+      <AuthorList authors={post.data.authors} />
+      <div class="tags">
+        {post.data.tags.map((tag) => {
+          const href = getTagHref(tag);
+          return href ? (
+            <a class="tag" href={href}>#{tag}</a>
+          ) : (
+            <span class="tag tag-disabled" title="このタグはURLにできない文字を含むため検索できません">#{tag}</span>
+          );
+        })}
+      </div>
+    </header>
+    <div class="prose"><Content /></div>
+    <footer class="post-detail-footer">
+      <p class="eyebrow">WRITTEN BY</p>
+      <AuthorList authors={post.data.authors} />
+      <p class="eyebrow">TAGS</p>
+      <div class="tags">
+        {post.data.tags.map((tag) => {
+          const href = getTagHref(tag);
+          return href ? (
+            <a class="tag" href={href}>#{tag}</a>
+          ) : (
+            <span class="tag tag-disabled" title="このタグはURLにできない文字を含むため検索できません">#{tag}</span>
+          );
+        })}
+      </div>
+    </footer>
+  </article>
+  <CodeCopy />
+  <ImageLightbox />
+</BaseLayout>

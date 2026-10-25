@@ -1,0 +1,86 @@
+---
+import { getPosts } from '../../data/posts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { members } from '../../data/members';
+import SocialLinks from '../../components/SocialLinks.astro';
+import PostLayoutToggle from '../../components/PostLayoutToggle.astro';
+import { Image } from 'astro:assets';
+import { getTagHref } from '../../data/tags';
+
+export async function getStaticPaths() {
+  return members.map((member) => ({ params: { id: member.id }, props: { member } }));
+}
+
+const { member } = Astro.props;
+const posts = getPosts()
+  .filter((post) => post.data.authors?.includes(member.id))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title={member.name}>
+  <header class="page-heading member-heading">
+    <Image src={member.icon} alt={`${member.name}のアイコン`} width="88" height="88" loading="eager" />
+    <div>
+      <p class="eyebrow">MEMBER</p>
+      <h1>{member.name}</h1>
+      <p>{member.bio}</p>
+      <SocialLinks socials={member.socials} />
+    </div>
+  </header>
+  {member.skills?.length ? (
+    <section class="member-section">
+      <p class="eyebrow">SKILLS</p>
+      <div class="member-skills">
+        {member.skills.map((skill) => {
+          const href = getTagHref(skill);
+          return href ? (
+            <a class="tag" href={href}>{skill}</a>
+          ) : (
+            <span class="tag tag-disabled" title="このタグはURLにできない文字を含むため検索できません">{skill}</span>
+          );
+        })}
+      </div>
+    </section>
+  ) : null}
+  {member.portfolios?.length ? (
+    <section class="member-section">
+      <p class="eyebrow">PORTFOLIO</p>
+      <div class="portfolio-grid">
+        {member.portfolios.map((portfolio) => (
+          <article class="portfolio-card">
+            {portfolio.url ? (
+              <h2><a href={portfolio.url} target="_blank" rel="noreferrer">{portfolio.title}<span class="external-link-icon" aria-label="外部リンクへ飛ぶ" title="外部リンクへ飛ぶ" aria-hidden="true">↗</span></a></h2>
+            ) : (
+              <h2><span>{portfolio.title}</span></h2>
+            )}
+            {portfolio.description && <p>{portfolio.description}</p>}
+            {portfolio.tags?.length ? (
+              <div class="tags portfolio-tags">
+                {portfolio.tags.map((tag) => {
+                  const href = getTagHref(tag);
+                  return href ? (
+                    <a class="tag" href={href}>{tag}</a>
+                  ) : (
+                    <span class="tag tag-disabled" title="このタグはURLにできない文字を含むため検索できません">{tag}</span>
+                  );
+                })}
+              </div>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </section>
+  ) : null}
+  <section class="member-posts">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">POSTS</p>
+        <h2>執筆した記事</h2>
+      </div>
+    </div>
+    <PostLayoutToggle count={`${posts.length}件の記事`} />
+    <div class="post-grid post-grid-selectable" data-post-layout-target>
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

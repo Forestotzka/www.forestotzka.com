@@ -1,0 +1,123 @@
+---
+import 'katex/dist/katex.min.css';
+import '@fontsource/noto-sans-jp/400.css';
+import '@fontsource/noto-sans-jp/700.css';
+import { ClientRouter } from 'astro:transitions';
+import { getImage, Image } from 'astro:assets';
+import siteIcon from '../assets/site-icon.png';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title = 'えありぷの森',
+  description = 'いろんな記事を書いています。',
+  image = '/images/site-eye-catching.png',
+  type = 'website',
+} = Astro.props;
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? Astro.site?.toString() ?? Astro.url.origin;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const imageUrl = new URL(image, siteUrl).href;
+const optimizedSiteIcon = await getImage({
+  src: siteIcon,
+  width: 840,
+  height: 420,
+  format: 'webp',
+});
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/images/favicon.ico" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="えありぷの森" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <link rel="preload" as="image" href={optimizedSiteIcon.src} type="image/webp" />
+    <ClientRouter />
+    <title>{title} | えありぷの森</title>
+  </head>
+  <body>
+    <header class="site-header" data-site-header transition:persist>
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="えありぷの森 ホーム">
+          <Image src={siteIcon} alt="えありぷの森" width="840" height="420" loading="eager" />
+        </a>
+        <nav aria-label="メインナビゲーション">
+          <a href="/posts/">記事</a>
+          <a href="/tags/">タグ</a>
+          <a href="/members/">メンバー</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container site-main"><slot /></main>
+    <footer class="site-footer">
+      <div class="container">© {new Date().getFullYear()} えありぷの森</div>
+    </footer>
+  </body>
+</html>
+<script>
+  const hideThreshold = 48;
+  const showThreshold = 40;
+  let lastScrollY = window.scrollY;
+  let downwardDistance = 0;
+  let upwardDistance = 0;
+
+  const resetHeader = () => {
+    const header = document.querySelector<HTMLElement>('[data-site-header]');
+    header?.classList.remove('is-hidden');
+    lastScrollY = window.scrollY;
+    downwardDistance = 0;
+    upwardDistance = 0;
+  };
+
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector<HTMLElement>('[data-site-header]');
+    if (!header) return;
+
+    const currentScrollY = window.scrollY;
+    const scrollDelta = currentScrollY - lastScrollY;
+
+    if (currentScrollY <= 0) {
+      resetHeader();
+    } else if (scrollDelta > 0) {
+      downwardDistance += scrollDelta;
+      upwardDistance = 0;
+      if (downwardDistance >= hideThreshold) {
+        header.classList.add('is-hidden');
+        downwardDistance = 0;
+      }
+    } else if (scrollDelta < 0) {
+      upwardDistance += Math.abs(scrollDelta);
+      downwardDistance = 0;
+      if (upwardDistance >= showThreshold) {
+        header.classList.remove('is-hidden');
+        upwardDistance = 0;
+      }
+    }
+
+    lastScrollY = currentScrollY;
+  }, { passive: true });
+
+  resetHeader();
+  document.addEventListener('astro:after-swap', resetHeader);
+  document.addEventListener('astro:page-load', resetHeader);
+</script>
+<style is:global>
+  @import '../styles/global.css';
+</style>

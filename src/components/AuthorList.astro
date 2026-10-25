@@ -1,0 +1,31 @@
+---
+import { findMember } from '../data/members';
+import { Image } from 'astro:assets';
+
+interface Props {
+  authors?: string[];
+  compact?: boolean;
+}
+
+const { authors, compact = false } = Astro.props;
+// IDからメンバー情報を解決し、未登録の執筆者には共通フォールバックを使う。
+const authorEntries = authors?.map((author) => ({ name: findMember(author)?.name ?? author, member: findMember(author), id: author }));
+---
+{authorEntries && authorEntries.length > 0 && (
+  <div class="author-list" aria-label="執筆者">
+    {authorEntries.map(({ name, member, id }) => (
+      member ? (
+        <a class="author" href={`/members/${id}/`}>
+          <Image src={member.icon} alt="" width="40" height="40" />
+          <span>{name}</span>
+        </a>
+      ) : (
+        <div class="author">
+          <Image src="/images/members/fallback.svg" alt="" width="40" height="40" />
+          <span>{name}</span>
+        </div>
+      )
+    ))}
+    {compact && <span class="post-card-ellipsis" aria-hidden="true">…</span>}
+  </div>
+)}

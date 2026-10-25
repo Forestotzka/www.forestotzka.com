@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+---
+<div class="image-lightbox" data-image-lightbox aria-hidden="true">
+  <figure class="lightbox-content">
+    <Image src="/images/post-thumbnail-fallback.svg" data-lightbox-image alt="" width={16} height={9} />
+  </figure>
+</div>
+<script>
+  // 本文画像と記事サムネイルを、共通のライトボックスで拡大表示する。
+  const closeLightbox = () => {
+    const lightbox = document.querySelector<HTMLElement>('[data-image-lightbox]');
+    lightbox?.classList.remove('is-open');
+    lightbox?.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+  };
+
+  const openLightbox = (image: HTMLImageElement) => {
+    const lightbox = document.querySelector<HTMLElement>('[data-image-lightbox]');
+    const lightboxImage = lightbox?.querySelector<HTMLImageElement>('[data-lightbox-image]');
+    if (!lightbox || !lightboxImage) return;
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt;
+    lightboxImage.removeAttribute('width');
+    lightboxImage.removeAttribute('height');
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+  };
+
+  const prepareImages = () => {
+    document.querySelectorAll<HTMLImageElement>('.prose img, [data-lightbox-source]').forEach((image) => {
+      image.tabIndex = 0;
+      image.setAttribute('role', 'button');
+    });
+  };
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element;
+    if (target.closest('[data-image-lightbox]')) {
+      closeLightbox();
+      return;
+    }
+    const image = target.closest<HTMLImageElement>('.prose img, [data-lightbox-source]');
+    if (image) openLightbox(image);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const image = (event.target as Element).closest<HTMLImageElement>('.prose img, [data-lightbox-source]');
+    if (!image) return;
+    event.preventDefault();
+    openLightbox(image);
+  });
+
+  document.addEventListener('astro:page-load', closeLightbox);
+  document.addEventListener('astro:after-swap', closeLightbox);
+  document.addEventListener('astro:page-load', prepareImages);
+  document.addEventListener('astro:after-swap', prepareImages);
+  prepareImages();
+</script>
