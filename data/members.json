@@ -73,8 +73,15 @@
   {
     "id": "mint",
     "name": "春秋みんと",
-    "bio": "自分の為の言語、ベーツェ語を作っている",
+    "bio": "創作活動したり、生きたり、パンケーキ、いろいろ。惰性薬学生",
     "icon": "/images/members/mint.png",
+    "skills":[
+      "Python",
+      "Blender",
+      "Font Making",
+      "Guitar",
+      "Conlang"
+    ],
     "socials": {
       "youtube": "https://www.youtube.com/@ShunjuMint",
       "twitter": "https://x.com/ShunjuMint",
