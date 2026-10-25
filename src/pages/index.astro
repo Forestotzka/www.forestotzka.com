@@ -5,16 +5,13 @@ import PostCard from '../components/PostCard.astro';
 
 const posts = getPosts().sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
+
 <BaseLayout>
-  <section class="hero">
-    <p class="eyebrow">WELCOME</p>
-    <h1>えありぷの森</h1>
-    <p>いろんな記事を書いています。</p>
-    <a class="button" href="/posts/">記事を読む</a>
-  </section>
+  <div class="post-grid recent-post">
+    {posts.slice(0, 1).map((post) => <PostCard post={post} eager />)}
+  </div>
   <section class="section-heading">
     <div>
-      <p class="eyebrow">RECENT POSTS</p>
       <div class="recent-posts-header">
         <h2>最近の記事</h2>
         <a href="/posts/">すべて見る →</a>

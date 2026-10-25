@@ -21,7 +21,6 @@ const posts = getPosts()
   <header class="page-heading member-heading">
     <Image src={member.icon} alt={`${member.name}のアイコン`} width="88" height="88" loading="eager" />
     <div>
-      <p class="eyebrow">MEMBER</p>
       <h1>{member.name}</h1>
       <p>{member.bio}</p>
       <SocialLinks socials={member.socials} />
@@ -29,7 +28,6 @@ const posts = getPosts()
   </header>
   {member.skills?.length ? (
     <section class="member-section">
-      <p class="eyebrow">SKILLS</p>
       <div class="member-skills">
         {member.skills.map((skill) => {
           const href = getTagHref(skill);
@@ -44,7 +42,6 @@ const posts = getPosts()
   ) : null}
   {member.portfolios?.length ? (
     <section class="member-section">
-      <p class="eyebrow">PORTFOLIO</p>
       <div class="portfolio-grid">
         {member.portfolios.map((portfolio) => (
           <article class="portfolio-card">
@@ -74,7 +71,6 @@ const posts = getPosts()
   <section class="member-posts">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">POSTS</p>
         <h2>執筆した記事</h2>
       </div>
     </div>
