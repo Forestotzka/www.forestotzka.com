@@ -26,7 +26,7 @@ const removePreTabIndex = () => ({
 });
 
 export default defineConfig({
-  site: 'http://localhost:4321',
+  site: 'https://www.forestotzka.com',
   compressHTML: true,
   markdown: {
     processor: unified({
