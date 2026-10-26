@@ -50,7 +50,7 @@ thumbnail: ./thumbnail.png
 
 記事本文内の画像はクリックすると拡大表示できます。画面内のどこかをクリックするか、Escapeキーで閉じられます。
 
-存在しないURLには404ページを表示し、トップページと記事一覧へのリンクを案内します。サムネイル未指定の記事カードでは、`public/images/post-thumbnail-fallback.svg` をフォールバック画像として表示します。未知の執筆者には `public/images/members/fallback.svg` を表示します。
+存在しないURLには404ページを表示し、トップページと記事一覧へのリンクを案内します。サムネイル未指定の記事カードでは、`public/images/post-thumbnail-fallback.png` をフォールバック画像として表示します。未知の執筆者には `public/images/members/fallback.svg` を表示します。
 
 サイト共通のcanonical URL、Open Graph、Twitterカードを出力します。記事では設定したサムネイル、それ以外のページでは `public/images/site-eye-catching.png` を `summary_large_image` の画像として使用します。絶対URLの基準は `PUBLIC_SITE_URL` 環境変数で変更でき、未設定時はAstroのサイト設定またはローカルURLを使用します。
 
