@@ -128,8 +128,18 @@ main {
 }
 
 /* 最新記事 */
+.section-heading.top-page {
+  margin-bottom: 20px;
+}
+
+.section-heading .recent-post-header h2 {
+  text-align: center;
+  font-size: 2.3rem;
+}
+
 .post-grid.recent-post {
   grid-template-columns: 1fr;
+  margin-bottom: 50px;
 }
 
 .post-grid.recent-post .post-card .post-card-thumbnail img {
@@ -191,7 +201,7 @@ main {
   margin: 4px 0 0;
 }
 
-.section-heading .recent-posts-header {
+.section-heading .other-posts-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -216,7 +226,7 @@ main {
 
 .error-page {
   margin: 72px auto 140px;
-  max-width: 640px;
+  width: fit-content;
 }
 
 .error-page h1 {
@@ -1127,6 +1137,10 @@ a.author span:hover {
 @media (max-width: 680px) {
   .container {
     padding: 0 18px;
+  }
+
+  .top-page {
+    padding-top: 40px;
   }
 
   .hero {

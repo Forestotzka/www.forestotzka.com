@@ -7,15 +7,18 @@ const posts = getPosts().sort((a, b) => b.data.date.valueOf() - a.data.date.valu
 ---
 
 <BaseLayout>
+  <section class="section-heading top-page">
+    <div class="recent-post-header">
+      <h2>新着記事</h2>
+    </div>
+  </section>
   <div class="post-grid recent-post">
     {posts.slice(0, 1).map((post) => <PostCard post={post} eager />)}
   </div>
   <section class="section-heading">
-    <div>
-      <div class="recent-posts-header">
-        <h2>その他の記事</h2>
-        <a href="/posts/">すべて見る →</a>
-      </div>
+    <div class="other-posts-header">
+      <h2>最近の記事</h2>
+      <a href="/posts/">すべて見る →</a>
     </div>
   </section>
   <div class="post-grid">
