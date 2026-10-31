@@ -53,6 +53,7 @@ const optimizedSiteIcon = await getImage({
     <link rel="preload" as="image" href={optimizedSiteIcon.src} type="image/webp" />
     <ClientRouter />
     <title>{title} | えありぷの森</title>
+    <script is:inline async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
   </head>
   <body>
     <header class="site-header" data-site-header transition:persist>
@@ -116,9 +117,15 @@ const optimizedSiteIcon = await getImage({
     lastScrollY = currentScrollY;
   }, { passive: true });
 
+  const reloadTwitterWidgets = () => {
+    const twttr = (window as Window & { twttr?: { widgets?: { load: (root?: Element) => void } } }).twttr;
+    twttr?.widgets?.load();
+  };
+
   resetHeader();
   document.addEventListener('astro:after-swap', resetHeader);
   document.addEventListener('astro:page-load', resetHeader);
+  document.addEventListener('astro:page-load', reloadTwitterWidgets);
 </script>
 <style is:global>
   @import '../styles/global.css';

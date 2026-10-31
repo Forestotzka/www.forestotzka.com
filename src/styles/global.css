@@ -888,6 +888,7 @@ a.author span:hover {
   display: block;
   height: auto;
   max-width: 100%;
+  margin: 0 auto;
 }
 
 .prose code {
@@ -1195,4 +1196,10 @@ a.author span:hover {
   .page-heading {
     margin-top: 40px;
   }
+}
+
+
+/* ツイート埋め込みを中央寄せ */
+.twitter-tweet {
+  margin-inline: auto;
 }

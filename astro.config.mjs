@@ -2,6 +2,7 @@ import { unified } from '@astrojs/markdown-remark';
 import { defineConfig } from 'astro/config';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { remarkTwitterEmbed } from './src/remarks/twitterEmbed';
 
 // Markdown数式とmcfunctionコードをAstroのビルド時に変換する。
 const mcfunction = {
@@ -30,7 +31,10 @@ export default defineConfig({
   compressHTML: true,
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [
+        remarkMath,
+        remarkTwitterEmbed,
+      ],
       rehypePlugins: [rehypeKatex],
     }),
     shikiConfig: {
