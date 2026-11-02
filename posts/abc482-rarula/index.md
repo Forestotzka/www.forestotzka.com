@@ -1,7 +1,7 @@
 ---
 title: AtCoder Beginner Contest 482 振り返り
 description: AtCoder Beginner Contest 482に参加した記録と、A〜E問題の振り返りです。
-date: 2026-11-01
+date: 2026-11-02
 tags:
   - AtCoder
   - ABC
