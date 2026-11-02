@@ -10,6 +10,7 @@ tags:
   - 競プロ
 authors:
   - mint
+thumbnail: ./contest-result.png
 ---
 
 # どうも
